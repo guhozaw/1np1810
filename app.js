@@ -32,7 +32,4 @@ function handleRequest(request, response) {
 	response.end('Hello World, Testing!\n Link: ' + request.url);
 }
 var server = http.createServer(handleRequest);
-server.listen(process.env.VCAP_APP_PORT, function() {
-	// print a message when the server starts listening
-	console.log("server starting...");
-});
+server.listen(process.env.VCAP_APP_PORT);
