@@ -1,6 +1,6 @@
 {
-	"name": "NodejsStarterApp",
-	"version": "0.0.1",
+	"name": "1np1810 app",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"start": "node app.js"

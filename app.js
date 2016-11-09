@@ -1,4 +1,4 @@
-/*eslint-env node*/
+/*eslint-env node
 
 //------------------------------------------------------------------------------
 // node.js starter application for Bluemix
@@ -25,4 +25,14 @@ var appEnv = cfenv.getAppEnv();
 app.listen(appEnv.port, '0.0.0.0', function() {
   // print a message when the server starts listening
   console.log("server starting on " + appEnv.url);
+});
+ */
+var http = require('http');
+function handleRequest(request, response) {
+	response.end('Hello World, Testing!\n Link: ' + request.url);
+}
+var server = http.createServer(handleRequest);
+server.listen(appEnv.port, function() {
+	// print a message when the server starts listening
+	console.log("server starting on " + appEnv.url);
 });
