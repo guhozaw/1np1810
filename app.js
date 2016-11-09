@@ -19,7 +19,7 @@ function handleRequest(request, response) {
 	var res = https.get(options, function(res) {
 		var pageData = "";
 		res.on('data', function(chunk) {
-			response.write(' .');
+			response.write('. ');
 			pageData += chunk;
 		});
 		res.on('end', function() {
