@@ -27,9 +27,13 @@ app.listen(appEnv.port, '0.0.0.0', function() {
   console.log("server starting on " + appEnv.url);
 });
  */
+var port = process.env.VCAP_APP_PORT || 8080;
+var host = process.env.VCAP_APP_HOST || 'localhost';
 var http = require('http');
 function handleRequest(request, response) {
 	response.end('Hello World, Testing!\n Link: ' + request.url);
 }
 var server = http.createServer(handleRequest);
-server.listen(process.env.VCAP_APP_PORT);
+server.listen(port, host, function() {
+	console.log("Server started...");
+});
