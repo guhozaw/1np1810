@@ -1,39 +1,31 @@
-/*eslint-env node
-
-//------------------------------------------------------------------------------
-// node.js starter application for Bluemix
-//------------------------------------------------------------------------------
-
-// This application uses express as its web server
-// for more info, see: http://expressjs.com
-var express = require('express');
-
-// cfenv provides access to your Cloud Foundry environment
-// for more info, see: https://www.npmjs.com/package/cfenv
-var cfenv = require('cfenv');
-
-// create a new express server
-var app = express();
-
-// serve the files out of ./public as our main files
-app.use(express.static(__dirname + '/public'));
-
-// get the app environment from Cloud Foundry
-var appEnv = cfenv.getAppEnv();
-
-// start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
-  // print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
-});
- */
-var port = process.env.VCAP_APP_PORT || 8080;
+var port = process.env.VCAP_APP_PORT || 80;
 var host = process.env.VCAP_APP_HOST || 'localhost';
+var newsSrc = 'cnn';
+var options = {
+	host : 'www.nasa.gov',
+	path : '/sites/default/files/thumbnails/image/viirs_9apr2015.jpg'
+};
+//var options = {
+//	host : 'newsapi.org',
+//	path : '/v1/articles?source=cnn&apiKey=0ecb50865d59472f92fd558bdfa4fd2d'
+//};
 var http = require('http');
+var https = require('https');
 function handleRequest(request, response) {
-	response.end('Hello World, It Works!\nLink: ' + request.url);
+	response.writeHead(200, {'Content-Type': 'text/plain' });
+	response.write('Getting content');
+	var res = https.get(options, function(res) {
+		var pageData = "";
+		res.on('data', function(chunk) {
+			response.write(' .');
+			pageData += chunk;
+		});
+		res.on('end', function() {
+			response.end('\nContent loaded!');
+		});
+	});
 }
 var server = http.createServer(handleRequest);
 server.listen(port, host, function() {
-	console.log("Server started...");
+	console.log("Server started at", host, port);
 });
