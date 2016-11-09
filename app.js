@@ -31,7 +31,7 @@ var port = process.env.VCAP_APP_PORT || 8080;
 var host = process.env.VCAP_APP_HOST || 'localhost';
 var http = require('http');
 function handleRequest(request, response) {
-	response.end('Hello World, Testing!\n Link: ' + request.url);
+	response.end('Hello World, It Works!\nLink: ' + request.url);
 }
 var server = http.createServer(handleRequest);
 server.listen(port, host, function() {
